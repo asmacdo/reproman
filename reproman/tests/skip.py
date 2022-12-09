@@ -42,6 +42,7 @@ now be `mark.skipif_windows` and `skipif.windows`.
 """
 import abc
 import os
+import traceback
 
 import pytest
 
@@ -56,6 +57,7 @@ from reproman.utils import on_windows as _on_windows
 # function to CONDITION_FNS.
 
 
+# TODO(asmacdo) maybe should make new `no_debian`
 def no_apt_cache():
     return ("apt-cache not available",
             not external_versions["cmd:apt-cache"])
@@ -110,6 +112,15 @@ def no_network():
 
 
 def no_singularity():
+    # TODO(asmacdo) any way to get ipdb to work in pytest?
+    # import ipdb; ipdb.set_trace()
+    print("HELLO WORLD")
+    print("HELLO WORLD")
+    print("HELLO WORLD")
+    print("HELLO WORLD")
+    print("HELLO WORLD")
+    # TODO(asmacdo) correctly returns true. Hmmmm, but this IS running....
+    print(not external_versions["cmd:singularity"])
     return ("singularity not available",
             not external_versions["cmd:singularity"])
 
@@ -177,6 +188,7 @@ class Namespace(object, metaclass=abc.ABCMeta):
     """
 
     fns = {c.__name__: c for c in CONDITION_FNS}
+    print("namespace")
 
     @abc.abstractmethod
     def attr_value(self, condition_func):
@@ -184,10 +196,13 @@ class Namespace(object, metaclass=abc.ABCMeta):
         """
 
     def __getattr__(self, item):
+        print("dunder attrs-------")
         try:
             condfn = self.fns[item]
+            print("\'tworked")
         except KeyError:
             raise NamespaceAttributeError(item) from None
+        print("see it worked")
         return self.attr_value(condfn)
 
 
@@ -199,7 +214,17 @@ class SkipIf(Namespace):
     """
 
     def attr_value(self, condition_func):
+        # pritn("if it worked, why isnt this getting called??")
         def fn():
+            # print("skipif")
+            # print("skipif")
+            # print("skipif")
+            # print("skipif")
+            # print("skipif")
+            # print("skipif")
+            # print("skipif")
+            # print("hello????? is this thing on????????")
+            # TODO(asmacdo) @mark.skipif_no_singularity is a mark dummy
             reason, cond = condition_func()
             if cond:
                 pytest.skip(reason, allow_module_level=True)
@@ -217,18 +242,47 @@ class Mark(Namespace):
     """
 
     def attr_value(self, condition_func):
+        print("looks like we\'re about to get back to \'twerked")
+        print(condition_func)
         reason, cond = condition_func()
+        if condition_func.__name__ == "no_singularity":
+            print("Huzzah")
+            # if cond:
+                # traceback.print_stack()
+                # print(pytest.mark.skipif)
+                # raise Exception(condition_func)
+        # print(reason)
+        # print("cond:")
+        # print(cond)
+        # print("shit so its working. why isnt this test skipppped")
+
         return pytest.mark.skipif(cond, reason=reason)
 
     def __getattr__(self, item):
         if item.startswith("skipif_"):
             try:
-                return super(Mark, self).__getattr__(item[len("skipif_"):])
+                print("item {item}".format(item=item))
+                the_thing = super(Mark, self).__getattr__(item[len("skipif_"):])
+                print("the thing")
+                print("the thing")
+                print("the thing")
+                print("the thing")
+                print(the_thing)
+                print("the thing ^^")
+                return the_thing
             except NamespaceAttributeError:
+                print("A")
                 # Fall back to the original item name so that the attribute
                 # error message doesn't confusingly drop "skipif_".
                 pass
-        return super(Mark, self).__getattr__(item)
+            except Exception as e:
+                print("somethin fishy happnin")
+                print("my error got caught here /facepalm")
+        print("B")
+        the_other_thing = super(Mark, self).__getattr__(item)
+        print("the other thing")
+        print(the_other_thing)
+        return the_other_thing
 
 
 mark = Mark()

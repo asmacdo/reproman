@@ -313,6 +313,7 @@ class DebTracer(DistributionTracer):
                                                      ' /etc/os-release')
             _, _ = self._session.execute_command('ls -ld /etc/apt')
         except CommandError as exc:
+            # import ipdb; ipdb.set_trace()
             lgr.debug("Did not detect Debian (or derivative): %s", exc)
             return
 
