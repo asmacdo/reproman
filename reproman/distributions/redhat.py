@@ -206,9 +206,9 @@ class RPMTracer(DistributionTracer):
             redhat_version = self._session.read('/etc/redhat-release').strip()
             _, _ = self._session.execute_command('ls -ld /etc/yum')
         except CommandError as exc:
+            # Newer rpm systems use `dnf`
             try:
                 _, _ = self._session.execute_command('ls -ld /etc/dnf')
-                print("Heeeyyyoooo")
             except CommandError as exc:
                 lgr.debug("Did not detect Redhat (or derivative): %s", exc)
                 return

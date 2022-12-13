@@ -87,20 +87,7 @@ def test_progress_bar(backend, l, increment):
         pstr = out.getvalue()
         print(pstr)
         ok_startswith(pstr.lstrip('\r'), 'label:')
-        # try:
         assert_re_in(r'.*\b%d%%.*' % (10*x), pstr)
-            # print("backend: {b}".format(b=backend))
-            # print("increment: {b}".format(b=increment))
-            # print("l: {b}".format(b=l))
-        # except Exception as e:
-            # import ipdb; ipdb.set_trace()
-            # print("backend: {b}".format(b=backend))
-            # print("increment: {b}".format(b=increment))
-            # print("l: {b}".format(b=l))
-            # print(increment)
-            # print(e)
-            # print(e)
-            # continue
         if backend == 'progressbar':
             assert_in('ETA', pstr)
     pb.finish()

@@ -81,14 +81,12 @@ class Retrace(Interface):
     def __call__(path=None, spec=None, output_file=None,
                  resref=None, resref_type="auto"):
         # heavy import -- should be delayed until actually used
-        # import ipdb; ipdb.set_trace()
 
         if not (spec or path):
             raise InsufficientArgumentsError(
                 "Need at least a single --spec or a file"
             )
 
-    # import ipdb; ipdb.set_trace()
         paths = assure_list(path)
         if spec:
             lgr.info("reading spec file %s", spec)
@@ -190,7 +188,6 @@ def identify_distributions(files, session=None, tracer_classes=None):
             lgr.debug("Tracing using %s", Tracer.__name__)
             # TODO: memoize across all loops
             # Identify directories from the files_to_consider
-            # import ipdb; ipdb.set_trace()
             dirs = set(filter(session.isdir, files_to_trace))
 
             # Pull out directories if the tracer can't handle them

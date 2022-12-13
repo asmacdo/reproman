@@ -233,7 +233,7 @@ class DebianDistribution(Distribution):
         use_version : bool, optional
           Use version information if provided.
           TODO: support outside or deprecate
-            
+
         """
         package_specs = []
 
@@ -301,7 +301,7 @@ class DebTracer(DistributionTracer):
     def identify_distributions(self, files):
         if not files:
             return
-        
+
         try:
             debian_version = self._session.read('/etc/debian_version').strip()
             self._session.exists('/etc/os-release')
@@ -313,7 +313,6 @@ class DebTracer(DistributionTracer):
                                                      ' /etc/os-release')
             _, _ = self._session.execute_command('ls -ld /etc/apt')
         except CommandError as exc:
-            # import ipdb; ipdb.set_trace()
             lgr.debug("Did not detect Debian (or derivative): %s", exc)
             return
 

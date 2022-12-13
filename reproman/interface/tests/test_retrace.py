@@ -33,26 +33,14 @@ def test_retrace(reprozip_spec2):
 
 
 def test_retrace_to_output_file(reprozip_spec2):
-    with make_tempfile() as outfile, make_tempfile() as outfile2:
+	with make_tempfile() as outfile:
         args = ['retrace',
                 '--spec', reprozip_spec2,
                 '--output-file', outfile]
         main(args)
-        #
-        # args2 = ['retrace',
-        #         '--spec', reprozip_spec1,
-        #         '--output-file', outfile2]
-        # main(args2)
         ## Perform a simple check of whether the output file can be
         ## loaded.
         provenance = Provenance.factory(outfile)
-        # provenance2 = Provenance.factory(outfile2)
-        # import ipdb; ipdb.set_trace()
-        # print("OUTFILE")
-        # print(outfile)
-        # assert(False)
-        # TODO(asmacdo) start here
-        # *** KeyError: 'distributions'
         assert len(provenance.get_distributions()) == 1
 
 

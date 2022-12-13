@@ -39,7 +39,6 @@ class RepromanProvenance(Provenance):
     Parser for ReproMan Spec (YAML specification)
     """
 
-    # asmload
     @classmethod
     def _load(cls, source):
         """
@@ -93,28 +92,6 @@ class RepromanProvenance(Provenance):
             List of Distribution sub-class objects.
         """
         from ..distributions.base import TypedList
-        # TODO(asmacdo) start here 
-        # these_distributions = self._src.get("distributions", TypedList(Distribution))
-        # return self._load_spec(these_distributions, TypedList(Distribution))
-        # print(these_distributions)
-        # return these_distributions
-        # import ipdb; ipdb.set_trace()
-        # dummy = "dummy"
-        # print(dummy)
-        # print("IS THIS MY FAULT")
-        # import ipdb; ipdb.set_trace()
-        
-        # these_distributions = self._src.get("distributions"):
-            # print("why is ipdb like this {BEFORE}")
-            # print("why is ipdb like this {BEFORE}")
-            # print("why is ipdb like this {BEFORE}")
-            # print("why is ipdb like this {BEFORE}")
-            #
-            # import ipdb; ipdb.set_trace()
-            # print("why is ipdb like this")
-            # print("why is ipdb like this")
-            # print("why is ipdb like this")
-
         return self._load_spec(self._src["distributions"], TypedList(Distribution))
 
     def _load_spec(self, in_value, factory_class=None):

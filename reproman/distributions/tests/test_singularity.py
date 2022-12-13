@@ -21,12 +21,9 @@ from ...tests.skip import mark
 @mark.skipif_no_network
 @pytest.mark.xfail(reason="Singularity Hub is down", run=False)
 @pytest.mark.xfail(
-#     # TODO(asmacdo) this test is failing because I don't have singularity installed and None cannot be compared 
-#     # TODO(asmacdo)  why is this not skipped?
-    (external_versions["cmd:singularity"] is not None and external_versions["cmd:singularity"] >= '3'),
+    (external_versions["cmd:singularity"] and external_versions["cmd:singularity"] >= '3'),
     reason="Pulling with @hash fails with Singularity v3 (gh-406)")
 def test_singularity_trace(tmpdir):
-    print("hello test")
     tmpdir = str(tmpdir)
     # Download and set up singularity image file
     runner = Runner(cwd=tmpdir)
