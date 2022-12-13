@@ -33,7 +33,7 @@ def test_retrace(reprozip_spec2):
 
 
 def test_retrace_to_output_file(reprozip_spec2):
-	with make_tempfile() as outfile:
+    with make_tempfile() as outfile:
         args = ['retrace',
                 '--spec', reprozip_spec2,
                 '--output-file', outfile]
