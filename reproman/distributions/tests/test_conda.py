@@ -107,8 +107,8 @@ def test_conda_init_install_and_detect(tmpdir):
     dist = CondaDistribution(
         name="conda",
         path=test_dir,
-        conda_version="4.8.2",
-        python_version="3.8.2",
+        conda_version="22.11.1",
+        python_version="3.7.5",
         platform=get_conda_platform_from_python(sys.platform) + "-64",
         environments=[
             CondaEnvironment(
@@ -118,7 +118,7 @@ def test_conda_init_install_and_detect(tmpdir):
                     CondaPackage(
                         name="conda",
                         installer=None,
-                        version="4.8.2",
+                        version="22.11.1",
                         build=None,
                         channel_name=None,
                         md5=None,
