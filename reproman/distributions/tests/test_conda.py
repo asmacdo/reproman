@@ -31,25 +31,32 @@ def test_get_conda_platform_from_python():
     assert get_conda_platform_from_python("darwin") == "osx"
 
 
+# TODO(matrix for OSX arm64)
+# TODO(need pkg-x64.pkg?)
 def test_get_miniconda_url():
+    assert get_miniconda_url("linux-32b", "3.7", "4.12.0") == \
+        "https://repo.anaconda.com/miniconda/Miniconda3-py37_4.12.0-Linux-x86.sh"
+
+    assert get_miniconda_url("osx-32b", "3.8", "4.12.0") == \
+        "https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-MacOSX-x86.sh"
+
+    assert get_miniconda_url("osx-64", "3.9", "22.11.1-1") == \
+        "https://repo.anaconda.com/miniconda/Miniconda3-py39_22.11.1-1-MacOSX-x86_64.sh"
+
+    assert get_miniconda_url("linux-64", "3.9", "22.11.1-1") == \
+        "https://repo.anaconda.com/miniconda/Miniconda3-py39_22.11.1-1-Linux-x86_64.sh"
+
+    assert get_miniconda_url("linux-32", "3.10.1", "22.11.1-1") == \
+        "https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86.sh"
+
     assert get_miniconda_url("linux-64", "3.10.1", "22.11.1-1") == \
         "https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh"
 
-@pytest.mark.xfail(reason="Conda has updated their naming scheme")
-def test_get_miniconda_url_old():
-    # TODO conda has changed their release naming scheme. How should we account for this?
-    assert get_miniconda_url("linux", "3.9.9", "4.5.12") == \
-        "https://repo.anaconda.com/miniconda/Miniconda3-4.5.12-Linux-x86.sh"
-           # "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86.sh"
-    # TODO(matrix for OSX, including arm64)
-    # assert get_miniconda_url("osx-64", "3.10.1", "22.11.1-1") == \
-	# "https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-MacOSX-arm64.pkg"
-    #        "https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh"
-
 
 def test_get_simple_python_version():
-    assert CondaDistribution.get_simple_python_version("2.7.12.final.0") == \
-           "2.7.12"
+    # TODO rm usage of python 2
+    # assert CondaDistribution.get_simple_python_version("2.7.12.final.0") == \
+    #        "2.7.12"
     assert CondaDistribution.get_simple_python_version("3.5.1") == \
            "3.5.1"
 

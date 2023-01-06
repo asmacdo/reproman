@@ -227,6 +227,7 @@ class CondaDistribution(Distribution):
     def packages(self):
         return [ p for env in self.environments for p in env.packages ]
 
+	# TODO replace with packagin.Version
     @staticmethod
     def get_simple_python_version(python_version):
         # Get the simple python version from the conda info string
