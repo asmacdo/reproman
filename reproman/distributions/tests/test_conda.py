@@ -32,12 +32,19 @@ def test_get_conda_platform_from_python():
 
 
 def test_get_miniconda_url():
-    assert get_miniconda_url("linux-64", "2.7") == \
-           "https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh"
-    assert get_miniconda_url("linux-32", "3.4") == \
-           "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86.sh"
-    assert get_miniconda_url("osx-64", "3.5.1") == \
-           "https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh"
+    assert get_miniconda_url("linux-64", "3.10.1", "22.11.1-1") == \
+        "https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-Linux-x86_64.sh"
+
+@pytest.mark.xfail(reason="Conda has updated their naming scheme")
+def test_get_miniconda_url_old():
+    # TODO conda has changed their release naming scheme. How should we account for this?
+    assert get_miniconda_url("linux", "3.9.9", "4.5.12") == \
+        "https://repo.anaconda.com/miniconda/Miniconda3-4.5.12-Linux-x86.sh"
+           # "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86.sh"
+    # TODO(matrix for OSX, including arm64)
+    # assert get_miniconda_url("osx-64", "3.10.1", "22.11.1-1") == \
+	# "https://repo.anaconda.com/miniconda/Miniconda3-py310_22.11.1-1-MacOSX-arm64.pkg"
+    #        "https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh"
 
 
 def test_get_simple_python_version():
@@ -100,7 +107,6 @@ def test_create_conda_export():
 
 @pytest.mark.integration
 @mark.skipif_no_network
-@pytest.mark.skip(reason="These package versions don't play nice, and do not include python in the env file.")
 def test_conda_init_install_and_detect(tmpdir):
     # Note: We use a subdirectory of tmpdir because `install_packages` decides
     # to install miniconda based on whether the directory exists.
@@ -254,7 +260,6 @@ def test_conda_init_install_and_detect(tmpdir):
     # Smoke test to make sure install_packages doesn't choke on the format that
     # is actually returned by the tracer.
     distributions.initiate(None)
-    # import ipdb; ipdb.set_trace()
     distributions.install_packages()
 
 
