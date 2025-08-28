@@ -50,3 +50,4 @@ python setup.py build_manpage     # Build manual pages
 - Max line length: 120 characters
 - Follow conventional commits, keep very concise - just summary line unless body needed
 - Prefer single-line commit messages
+- Include Claude as co-author in commits: `Co-Authored-By: Claude <noreply@anthropic.com>`
