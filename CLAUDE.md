@@ -48,5 +48,5 @@ python setup.py build_manpage     # Build manual pages
 - Installation scheme: `pip install -e .[full]` gets all dependencies
 - Uses custom setuptools build commands for docs
 - Max line length: 120 characters
-- Follow conventional commits, keep very concise
-- prefer to keep a commit just the top line only
+- Follow conventional commits, keep very concise - just summary line unless body needed
+- Prefer single-line commit messages
