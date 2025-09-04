@@ -13,7 +13,7 @@ formats:
 
 python:
   install:
-    - requirements: requirements.txt
-    - requirements: requirements-devel.txt
-    - method: setuptools
+    - method: pip
       path: .
+      exrra_requirements:
+        - devel
