@@ -6,10 +6,10 @@ build:
     python: "3.8"
 
 formats:
-  - epub
   - pdf
 
 python:
   install:
     - requirements: requirements.txt
     - method: setuptools
+      path: .
